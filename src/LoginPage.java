@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.imageio.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +21,8 @@ public class LoginPage extends JFrame {
         setTitle("Login Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 600);
+        setLocationRelativeTo(null);
+
 
         JPanel panel = new JPanel(new GridLayout(1, 2));
 
@@ -67,6 +71,16 @@ public class LoginPage extends JFrame {
 
         right.add(homeLogo, BorderLayout.CENTER);
         right.setBackground(Color.decode("#F5EEDC"));
+
+        //para ig click sa create an account button -Leonel
+        createAccount.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                TeacherSignUp tsu = null;
+                tsu = new TeacherSignUp();
+                tsu.setVisible(true);
+                dispose(); // Close the current frame
+            }
+        });
 
         add(panel);
         setVisible(true);
