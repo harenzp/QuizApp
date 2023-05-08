@@ -24,29 +24,36 @@ public class HomePage extends JFrame {
         setSize(1000, 600);
         setLocationRelativeTo(null);
 
-
+        //panels
         JPanel panel = new JPanel(new GridLayout(1, 2));
-
         JPanel left = new JPanel();
         left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
-
         JPanel right = new JPanel(new BorderLayout());
         right.setBackground(Color.white);
 
         panel.add(left);
         panel.add(right);
 
+        //labels
         JLabel welcome = new JLabel("Welcome back!");
+        Font defaultFont = welcome.getFont();
+        Font welcomeFont = new Font(defaultFont.getFontName(), defaultFont.getStyle(), 30);
+        welcome.setFont(welcomeFont);
         JLabel dont = new JLabel("Don't have an account?");
 
-        teacherButton.setSize(new Dimension(100, 100));
+        //buttons
+        Dimension btnWidth = new Dimension(200, teacherButton.getPreferredSize().height);
+        teacherButton.setMaximumSize(btnWidth);
+        studentButton.setMaximumSize(btnWidth);
 
+        //alignments
         welcome.setAlignmentX(Component.CENTER_ALIGNMENT);
         teacherButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         studentButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         signUpLink.setAlignmentX(Component.CENTER_ALIGNMENT);
         dont.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        //colors & cursors
         teacherButton.setBackground(Color.decode("#DD4A48"));
         teacherButton.setForeground(Color.white);
         studentButton.setBackground(Color.decode("#DD4A48"));
@@ -57,10 +64,10 @@ public class HomePage extends JFrame {
         teacherButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         studentButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-
+        //for left panel
         left.add(Box.createVerticalGlue());
         left.add(welcome);
-        left.add(Box.createRigidArea(new Dimension(0, 50)));
+        left.add(Box.createRigidArea(new Dimension(0, 80)));
         left.add(teacherButton);
         left.add(Box.createRigidArea(new Dimension(0, 20)));
         left.add(studentButton);

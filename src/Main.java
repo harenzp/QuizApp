@@ -9,6 +9,7 @@ public class Main {
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize Laf hehe" );
         }
+
         new HomePage();
     }
 
