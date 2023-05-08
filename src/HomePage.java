@@ -74,8 +74,7 @@ public class HomePage extends JFrame {
         //para ig click sa create an account button -Leonel
         createAccount.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                TeacherSignUp tsu = null;
-                tsu = new TeacherSignUp();
+                TeacherSignUp tsu = new TeacherSignUp();
                 tsu.setVisible(true);
                 dispose(); // Close the current frame
             }
@@ -84,6 +83,4 @@ public class HomePage extends JFrame {
         add(panel);
         setVisible(true);
     }
-
-
 }

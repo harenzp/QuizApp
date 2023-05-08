@@ -45,9 +45,9 @@ public class TeacherSignUp extends JFrame {
         signInLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         signInLink.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                LoginPage loginPage = null;
+                HomePage loginPage = null;
                 try {
-                    loginPage = new LoginPage();
+                    loginPage = new HomePage();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -70,20 +70,20 @@ public class TeacherSignUp extends JFrame {
         // Add the input fields, buttons, and labels to the JFrame
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(signUpButton);
-        buttonPanel.setBackground(Color.decode("#F5EEDC"));
+//        buttonPanel.setBackground(Color.decode("#F5EEDC"));
 
         JPanel signInPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         signInPanel.add(signInLabel);
         signInPanel.add(signInLink);
-        signInPanel.setBackground(Color.decode("#F5EEDC"));
+//        signInPanel.setBackground(Color.decode("#F5EEDC"));
 
         JPanel studentLoginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         studentLoginPanel.add(studentLoginLabel);
         studentLoginPanel.add(studentLoginLink);
-        studentLoginPanel.setBackground(Color.decode("#F5EEDC"));
+//        studentLoginPanel.setBackground(Color.decode("#F5EEDC"));
 
         JPanel inputPanel = new JPanel(new GridBagLayout());
-        inputPanel.setBackground(Color.decode("#F5EEDC"));
+//        inputPanel.setBackground(Color.decode("#F5EEDC"));
 
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 5, 5);
@@ -167,7 +167,7 @@ public class TeacherSignUp extends JFrame {
         });
         return passwordField;
     }
-    public static void main(String[] args) {
-        new TeacherSignUp();
-    }
+//    public static void main(String[] args) {
+//        new TeacherSignUp();
+//    }
 }
