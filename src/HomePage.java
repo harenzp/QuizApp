@@ -5,9 +5,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class LoginPage extends JFrame {
-    BufferedImage theLogo = ImageIO.read(new File("myImages/QuizUP_wayNawng.png"));
-    Image scaledLogo = theLogo.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+public class HomePage extends JFrame {
+
+    BufferedImage theLogo = ImageIO.read(new File("myImages/1.png"));
+    Image scaledLogo = theLogo.getScaledInstance(350, 350, Image.SCALE_SMOOTH);
     JLabel homeLogo = new JLabel(new ImageIcon(scaledLogo));
 
     JButton teacherButton = new JButton("Teacher Login");
@@ -15,8 +16,8 @@ public class LoginPage extends JFrame {
     JButton createAccount = new JButton("Sign up.");
 
 
-    public LoginPage() throws IOException {
-        setTitle("Login Page");
+    public HomePage() throws IOException {
+        setTitle("QuizUP");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 600);
 
@@ -24,7 +25,6 @@ public class LoginPage extends JFrame {
 
         JPanel left = new JPanel();
         left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
-        left.setBackground(Color.white);
 
         JPanel right = new JPanel(new BorderLayout());
         right.setBackground(Color.white);
@@ -47,11 +47,11 @@ public class LoginPage extends JFrame {
         teacherButton.setForeground(Color.white);
         studentButton.setBackground(Color.decode("#DD4A48"));
         studentButton.setForeground(Color.white);
-        createAccount.setBackground(Color.decode("#F5EEDC"));
+        createAccount.setBackground(Color.decode("#f2f2f2"));
         createAccount.setForeground(Color.decode("#DD4A48"));
         createAccount.setBorderPainted(false);
 
-        left.setBackground(Color.decode("#F5EEDC"));
+
         left.add(Box.createVerticalGlue());
         left.add(welcome);
         left.add(Box.createRigidArea(new Dimension(0, 50)));
@@ -64,16 +64,12 @@ public class LoginPage extends JFrame {
         left.add(Box.createVerticalGlue());
 
         // For the right panel po
-
         right.add(homeLogo, BorderLayout.CENTER);
-        right.setBackground(Color.decode("#F5EEDC"));
+        right.setBackground(Color.decode("#DD4A48"));
 
         add(panel);
         setVisible(true);
     }
 
 
-    public static void main(String[] args) throws IOException {
-        new LoginPage();
-    }
 }
