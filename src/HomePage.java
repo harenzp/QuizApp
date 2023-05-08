@@ -15,7 +15,7 @@ public class HomePage extends JFrame {
 
     JButton teacherButton = new JButton("Teacher Login");
     JButton studentButton = new JButton("Student Login");
-    JButton createAccount = new JButton("Sign up.");
+    JLabel signUpLink = new JLabel("Sign up.");
 
 
     public HomePage() throws IOException {
@@ -44,16 +44,18 @@ public class HomePage extends JFrame {
         welcome.setAlignmentX(Component.CENTER_ALIGNMENT);
         teacherButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         studentButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        createAccount.setAlignmentX(Component.CENTER_ALIGNMENT);
+        signUpLink.setAlignmentX(Component.CENTER_ALIGNMENT);
         dont.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         teacherButton.setBackground(Color.decode("#DD4A48"));
         teacherButton.setForeground(Color.white);
         studentButton.setBackground(Color.decode("#DD4A48"));
         studentButton.setForeground(Color.white);
-        createAccount.setBackground(Color.decode("#f2f2f2"));
-        createAccount.setForeground(Color.decode("#DD4A48"));
-        createAccount.setBorderPainted(false);
+        signUpLink.setForeground(Color.decode("#DD4A48"));
+
+        signUpLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        teacherButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        studentButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 
         left.add(Box.createVerticalGlue());
@@ -64,7 +66,7 @@ public class HomePage extends JFrame {
         left.add(studentButton);
         left.add(Box.createRigidArea(new Dimension(0, 100)));
         left.add(dont);
-        left.add(createAccount);
+        left.add(signUpLink);
         left.add(Box.createVerticalGlue());
 
         // For the right panel po
@@ -72,7 +74,7 @@ public class HomePage extends JFrame {
         right.setBackground(Color.decode("#DD4A48"));
 
         //para ig click sa create an account button -Leonel
-        createAccount.addMouseListener(new MouseAdapter() {
+        signUpLink.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 TeacherSignUp tsu = new TeacherSignUp();
                 tsu.setVisible(true);
