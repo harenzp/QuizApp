@@ -7,7 +7,7 @@ public class Main {
         try {
             UIManager.setLookAndFeel( new FlatLightLaf() );
         } catch( Exception ex ) {
-            System.err.println( "Failed to initialize Laf hehe" );
+            System.err.println( "Failed haha" );
         }
 
         new HomePage();

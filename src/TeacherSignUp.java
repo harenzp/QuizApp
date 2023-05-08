@@ -9,12 +9,22 @@ public class TeacherSignUp extends JFrame {
     JPasswordField passwordField;
     JButton signUpButton;
     JLabel signInLabel, signInLink, studentLoginLabel, studentLoginLink;
+
+    JLabel quizUp, newAcc;
     public TeacherSignUp() {
         // Set up the JFrame
         setTitle("New Teacher Account");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 600);
         setLocationRelativeTo(null);
+
+        // label sa igbaw
+        quizUp = new JLabel("QuizUP");
+        newAcc = new JLabel("Create New Teacher Account");
+        Font defaultFont = quizUp.getFont();
+        quizUp.setFont(new Font(defaultFont.getFontName(), Font.BOLD, 50));
+//        newAcc.setFont(new Font(defaultFont.getFontName(), Font.BOLD, defaultFont.getSize()));
+
 
         // Create the input fields
         nameField = createTextFieldWithGuideText("Full Name");
@@ -57,7 +67,7 @@ public class TeacherSignUp extends JFrame {
         });
 
         //Join Teacher's Room (For Student's Login)
-        studentLoginLabel = new JLabel("Join a Teacher's Room here: ");
+        studentLoginLabel = new JLabel("Are you a student? Simply join a teacher's room here: ");
         studentLoginLink = new JLabel("<html><u>Student's Login</u></html>");
         studentLoginLink.setForeground(Color.decode("#DD4A48"));
         studentLoginLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -86,20 +96,31 @@ public class TeacherSignUp extends JFrame {
 //        inputPanel.setBackground(Color.decode("#F5EEDC"));
 
         GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(5, 5, 5, 5);
         c.gridx = 0;
+
         c.gridy = 0;
-        inputPanel.add(nameField, c);
+        c.insets = new Insets(5, 5, 5, 5);
+        inputPanel.add(quizUp, c);
         c.gridy = 1;
-        inputPanel.add(emailField, c);
-        c.gridy = 2;
-        inputPanel.add(passwordField, c);
-        c.gridy = 3;
-        inputPanel.add(buttonPanel, c);
-        c.gridy = 4;
-        inputPanel.add(signInPanel, c);
-        c.gridy = 5;
+        c.insets = new Insets(5, 5, 50, 5);
         inputPanel.add(studentLoginPanel, c);
+        c.gridy = 2;
+        c.insets = new Insets(5, 5, 5, 5);
+        inputPanel.add(newAcc, c);
+        c.gridy = 3;
+        inputPanel.add(nameField, c);
+        c.gridy = 4;
+        inputPanel.add(emailField, c);
+        c.gridy = 5;
+        inputPanel.add(passwordField, c);
+        c.gridy = 6;
+        c.insets = new Insets(5, 5, 50, 5);
+        inputPanel.add(buttonPanel, c);
+        c.gridy = 7;
+        c.insets = new Insets(5, 5, 5, 5);
+        inputPanel.add(signInPanel, c);
+        c.gridy = 8;
+
 
         getContentPane().add(inputPanel, BorderLayout.CENTER);
 
