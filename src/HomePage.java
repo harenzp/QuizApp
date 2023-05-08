@@ -35,10 +35,9 @@ public class HomePage extends JFrame {
         panel.add(right);
 
         //labels
-        JLabel welcome = new JLabel("Welcome back!");
+        JLabel welcome = new JLabel("Welcome!");
         Font defaultFont = welcome.getFont();
-        Font welcomeFont = new Font(defaultFont.getFontName(), defaultFont.getStyle(), 30);
-        welcome.setFont(welcomeFont);
+        welcome.setFont(new Font(defaultFont.getFontName(), Font.PLAIN, 50));
         JLabel dont = new JLabel("Don't have an account?");
 
         //buttons
