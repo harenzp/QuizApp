@@ -88,6 +88,15 @@ public class HomePage extends JFrame {
             }
         });
 
+        //paras login
+        teacherButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                TeacherLogin teacherLogin = new TeacherLogin();
+                teacherLogin.setVisible(true);
+                dispose(); // Close the current frame
+            }
+        });
+
         add(panel);
         setVisible(true);
     }

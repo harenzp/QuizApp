@@ -23,7 +23,6 @@ public class TeacherSignUp extends JFrame {
         newAcc = new JLabel("Create New Teacher Account");
         Font defaultFont = quizUp.getFont();
         quizUp.setFont(new Font(defaultFont.getFontName(), Font.BOLD, 50));
-//        newAcc.setFont(new Font(defaultFont.getFontName(), Font.BOLD, defaultFont.getSize()));
 
 
         // Create the input fields
