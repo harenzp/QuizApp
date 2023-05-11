@@ -34,6 +34,7 @@ public class TeacherSignUp extends JFrame {
         signUpButton = new JButton("Sign Up");
         signUpButton.setBackground(Color.decode("#DD4A48"));
         signUpButton.setForeground(Color.white);
+        signUpButton.setMaximumSize(new Dimension(200, signUpButton.getPreferredSize().height));
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

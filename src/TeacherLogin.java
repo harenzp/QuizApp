@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 class TeacherLogin extends JFrame {
 
@@ -47,8 +49,13 @@ class TeacherLogin extends JFrame {
         Dimension loginSize = new Dimension(300,400);
         loginPanel.setMaximumSize(loginSize);
 
-        // button size
-        loginButton.setMaximumSize(new Dimension(200, loginButton.getPreferredSize().height));
+        //text field and password field
+        emailTF.setMaximumSize(new Dimension(600,emailTF.getPreferredSize().height));
+        passwordPF.setMaximumSize(new Dimension(600,passwordPF.getPreferredSize().height));
+
+        // button
+        loginButton.setMaximumSize(new Dimension(300, loginButton.getPreferredSize().height));
+        loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Focus Listeners
         // for email
@@ -96,7 +103,7 @@ class TeacherLogin extends JFrame {
             }
         });
 
-        // wait sa
+        // student login
         JPanel studentLoginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         studentLoginLabel = new JLabel("Are you a student? Simply join a teacher's room here: ");
@@ -107,11 +114,29 @@ class TeacherLogin extends JFrame {
         studentLoginPanel.add(studentLoginLabel);
         studentLoginPanel.add(studentLoginLink);
 
+
+        // top part
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
         headerPanel.add(QuizUP);
         headerPanel.add(studentLoginPanel);
         headerPanel.setMaximumSize(new Dimension(headerPanel.getPreferredSize().width, headerPanel.getPreferredSize().height));
+
+        // lower part
+        JLabel dont = new JLabel("Don't have an account?");
+        dont.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel signUpLink = new JLabel("Sign up.");
+        signUpLink.setAlignmentX(Component.CENTER_ALIGNMENT);
+        signUpLink.setForeground(Color.decode("#DD4A48"));
+        signUpLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        signUpLink.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                TeacherSignUp tsu = new TeacherSignUp();
+                tsu.setVisible(true);
+                dispose(); // Close the current frame
+            }
+        });
 
         // add components
         loginPanel.add(teacherLoginLabel);
@@ -126,8 +151,11 @@ class TeacherLogin extends JFrame {
         mainPanel.add(headerPanel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         mainPanel.add(loginPanel);
-        mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         mainPanel.add(loginButton);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+        mainPanel.add(dont);
+        mainPanel.add(signUpLink);
         mainPanel.add(Box.createVerticalGlue());
 
         add(mainPanel);

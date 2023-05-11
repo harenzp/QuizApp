@@ -58,7 +58,6 @@ public class HomePage extends JFrame {
         studentButton.setBackground(Color.decode("#DD4A48"));
         studentButton.setForeground(Color.white);
         signUpLink.setForeground(Color.decode("#DD4A48"));
-
         signUpLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         teacherButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         studentButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
