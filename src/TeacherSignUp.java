@@ -188,7 +188,7 @@ public class TeacherSignUp extends JFrame {
         });
         return passwordField;
     }
-//    public static void main(String[] args) {
-//        new TeacherSignUp();
-//    }
+    public static void main(String[] args) {
+        new TeacherSignUp();
+    }
 }
