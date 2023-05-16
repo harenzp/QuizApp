@@ -67,7 +67,7 @@ public class StudentLogin extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new StudentLogin();
-    }
+//    public static void main(String[] args) {
+//        new StudentLogin();
+//    }
 }
