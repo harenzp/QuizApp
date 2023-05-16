@@ -96,6 +96,16 @@ public class HomePage extends JFrame {
             }
         });
 
+        //para student login
+        studentButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                StudentLogin studentLogin = new StudentLogin();
+                studentLogin.setVisible(true);
+                dispose(); // Close the current frame
+            }
+        });
+        //para sa launch 
+
         add(panel);
         setVisible(true);
     }
