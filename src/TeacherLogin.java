@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.sql.SQLException;
 
 class TeacherLogin extends JFrame {
 
@@ -49,7 +49,7 @@ class TeacherLogin extends JFrame {
         Dimension loginSize = new Dimension(300,400);
         loginPanel.setMaximumSize(loginSize);
 
-        //text field and password field
+        //text field and password field size
         emailTF.setMaximumSize(new Dimension(600,emailTF.getPreferredSize().height));
         passwordPF.setMaximumSize(new Dimension(600,passwordPF.getPreferredSize().height));
 
@@ -138,11 +138,26 @@ class TeacherLogin extends JFrame {
             }
         });
 
-        loginButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                TestPage test = new TestPage();
-                test.setVisible(true);
-                dispose(); // Close the current frame
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String username = emailTF.getText();
+                String password = new String(passwordPF.getPassword());
+
+                DatabaseManager databaseManager = null;
+                try {
+                    databaseManager = new DatabaseManager("jdbc:mysql://localhost:3306/quizup", "root", "Fsociety05");
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                if (databaseManager.authenticateUser(username, password)) {
+                    JOptionPane.showMessageDialog(TeacherLogin.this, "Login successful!");
+                    // Add code to open the main application window here
+                    LaunchBar launch = new LaunchBar();
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(TeacherLogin.this, "Invalid username or password!");
+                }
             }
         });
 

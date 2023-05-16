@@ -4,11 +4,15 @@ class DatabaseManager {
     private final String databaseUrl;
     private final String username;
     private final String password;
+    Connection connection;
 
-    public DatabaseManager(String databaseUrl, String username, String password) {
+
+    public DatabaseManager(String databaseUrl, String username, String password) throws SQLException {
         this.databaseUrl = databaseUrl;
         this.username = username;
         this.password = password;
+
+        connection = getDatabaseConnection();
     }
 
     public Connection getDatabaseConnection() throws SQLException {
@@ -17,8 +21,8 @@ class DatabaseManager {
 
     public boolean registerAccount(String name, String email, String password) {
         String sql = "INSERT INTO accounts(name, email, password) VALUES (?, ?, ?)";
-        try (Connection conn = getDatabaseConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, name);
             pstmt.setString(2, email);
             pstmt.setString(3, password);
@@ -28,5 +32,20 @@ class DatabaseManager {
             System.out.println("Failed to register account: " + e.getMessage());
             return false;
         }
+    }
+
+
+    public boolean authenticateUser(String username, String password) {
+        String query = "SELECT * FROM accounts WHERE email = ? AND password = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next(); // Return true if a matching user was found
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 }

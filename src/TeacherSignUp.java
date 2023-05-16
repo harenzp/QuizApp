@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class TeacherSignUp extends JFrame {
     JTextField nameField;
@@ -46,7 +47,13 @@ public class TeacherSignUp extends JFrame {
                 System.out.println("Email: " + email);
                 System.out.println("Password: " + password);
 
-                DatabaseManager databaseManager = new DatabaseManager("jdbc:mysql://localhost:3306/quizup", "root", "Fsociety05");
+                DatabaseManager databaseManager = null;
+                try {
+                    databaseManager = new DatabaseManager("jdbc:mysql://localhost:3306/quizup", "root", "Fsociety05");
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
                 boolean success = databaseManager.registerAccount(name, email, password);
                 if (success) {
                     System.out.println("Successfully saved!");

@@ -4,7 +4,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class LaunchBar {
-    public static void main(String[] args) {
+
+    public LaunchBar(){
+
         JFrame frame = new JFrame("QuizUp");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 600);
@@ -96,6 +98,10 @@ public class LaunchBar {
         frame.getContentPane().add(menuBar, BorderLayout.NORTH);
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new LaunchBar();
     }
 
     private static void addHoverEffect(JMenuItem menuItem) {
