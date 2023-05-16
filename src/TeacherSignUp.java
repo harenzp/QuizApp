@@ -45,6 +45,17 @@ public class TeacherSignUp extends JFrame {
                 System.out.println("Name: " + name);
                 System.out.println("Email: " + email);
                 System.out.println("Password: " + password);
+
+                DatabaseManager databaseManager = new DatabaseManager("jdbc:mysql://localhost:3306/quizup", "root", "Fsociety05");
+                boolean success = databaseManager.registerAccount(name, email, password);
+                if (success) {
+                    System.out.println("Successfully saved!");
+                    TeacherLogin teacherLogin = new TeacherLogin();
+                    teacherLogin.setVisible(true);
+                    dispose();
+                } else {
+                    System.out.println("Something went wrong!");
+                }
             }
         });
 
@@ -80,20 +91,17 @@ public class TeacherSignUp extends JFrame {
         // Add the input fields, buttons, and labels to the JFrame
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(signUpButton);
-//        buttonPanel.setBackground(Color.decode("#F5EEDC"));
+
 
         JPanel signInPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         signInPanel.add(signInLabel);
         signInPanel.add(signInLink);
-//        signInPanel.setBackground(Color.decode("#F5EEDC"));
 
         JPanel studentLoginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         studentLoginPanel.add(studentLoginLabel);
         studentLoginPanel.add(studentLoginLink);
-//        studentLoginPanel.setBackground(Color.decode("#F5EEDC"));
 
         JPanel inputPanel = new JPanel(new GridBagLayout());
-//        inputPanel.setBackground(Color.decode("#F5EEDC"));
 
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
@@ -120,7 +128,6 @@ public class TeacherSignUp extends JFrame {
         c.insets = new Insets(5, 5, 5, 5);
         inputPanel.add(signInPanel, c);
         c.gridy = 8;
-
 
         getContentPane().add(inputPanel, BorderLayout.CENTER);
 
@@ -188,7 +195,5 @@ public class TeacherSignUp extends JFrame {
         });
         return passwordField;
     }
-//    public static void main(String[] args) {
-//        new TeacherSignUp();
-//    }
 }
+

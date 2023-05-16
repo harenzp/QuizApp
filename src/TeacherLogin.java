@@ -98,7 +98,6 @@ class TeacherLogin extends JFrame {
                     passwordPF.setForeground(Color.GRAY);
                     passwordPF.setEchoChar((char) 0);
                     passwordPF.setText("Password");
-
                 }
             }
         });
@@ -113,7 +112,6 @@ class TeacherLogin extends JFrame {
 
         studentLoginPanel.add(studentLoginLabel);
         studentLoginPanel.add(studentLoginLink);
-
 
         // top part
         JPanel headerPanel = new JPanel();
@@ -130,10 +128,20 @@ class TeacherLogin extends JFrame {
         signUpLink.setForeground(Color.decode("#DD4A48"));
         signUpLink.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+
+        //listeners
         signUpLink.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 TeacherSignUp tsu = new TeacherSignUp();
                 tsu.setVisible(true);
+                dispose(); // Close the current frame
+            }
+        });
+
+        loginButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                TestPage test = new TestPage();
+                test.setVisible(true);
                 dispose(); // Close the current frame
             }
         });
