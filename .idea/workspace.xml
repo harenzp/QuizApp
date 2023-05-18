@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="12ab2c38-b393-466b-a5f5-bae6f1c2485d" name="Changes" comment="Local Database">
+    <list default="true" id="12ab2c38-b393-466b-a5f5-bae6f1c2485d" name="Changes" comment="student login by roxanne alcordo">
+      <change afterPath="$PROJECT_DIR$/src/LibraryPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/QuizApp/HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/QuizApp/HomePage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/QuizApp/LaunchBar$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/QuizApp/LaunchBar$1.class" afterDir="false" />
@@ -19,11 +20,7 @@
       <change beforePath="$PROJECT_DIR$/out/production/QuizApp/TeacherSignUp$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/QuizApp/TeacherSignUp$6.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/QuizApp/TeacherSignUp$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/QuizApp/TeacherSignUp$7.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/QuizApp/TeacherSignUp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/QuizApp/TeacherSignUp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LaunchBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LaunchBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TeacherLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TeacherLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TeacherSignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TeacherSignUp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,19 +51,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "vcs.Git",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
