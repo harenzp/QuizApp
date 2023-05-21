@@ -1,5 +1,4 @@
 import com.formdev.flatlaf.FlatLightLaf;
-import javax.swing.*;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -8,7 +7,6 @@ public class Main {
         try {
             FlatLightLaf.setGlobalExtraDefaults( Collections.singletonMap( "@accentColor", "#DD4A48" ) );
             FlatLightLaf.setup();
-//            UIManager.setLookAndFeel( new FlatLightLaf() );
         } catch( Exception ex ) {
             System.err.println( "Failed haha" );
         }

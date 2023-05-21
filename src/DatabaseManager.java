@@ -7,10 +7,10 @@ class DatabaseManager {
     Connection connection;
 
 
-    public DatabaseManager(String databaseUrl, String username, String password) throws SQLException {
-        this.databaseUrl = databaseUrl;
-        this.username = username;
-        this.password = password;
+    public DatabaseManager() throws SQLException {
+        this.databaseUrl = "jdbc:mysql://localhost:3306/quizup";
+        this.username = "root";
+        this.password = "Fsociety05";
 
         connection = getDatabaseConnection();
     }

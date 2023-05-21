@@ -49,7 +49,7 @@ public class TeacherSignUp extends JFrame {
 
                 DatabaseManager databaseManager = null;
                 try {
-                    databaseManager = new DatabaseManager("jdbc:mysql://localhost:3306/quizup", "root", "Fsociety05");
+                    databaseManager = new DatabaseManager();
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

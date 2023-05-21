@@ -1,17 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class LaunchBar {
+
     private LibraryPage libraryPage;
     private JFrame frame;
     public LaunchBar(){
         libraryPage = new LibraryPage();
 
-        frame = new JFrame("QuizUp");
+
+        JFrame frame = new JFrame("QuizUp");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 600);
 
@@ -53,12 +53,6 @@ public class LaunchBar {
         JMenu libraryMenu = new JMenu("Library");
         JMenuItem libraryItem = new JMenuItem("Library");
         libraryItem.setMargin(new Insets(0, 100, 0, 90)); // Adjust the spacing here
-        libraryItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showLibraryPage();
-            }
-        });
         libraryMenu.add(libraryItem);
 
         JMenu roomsMenu = new JMenu("Rooms");
@@ -108,10 +102,6 @@ public class LaunchBar {
         frame.getContentPane().add(menuBar, BorderLayout.NORTH);
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new LaunchBar();
     }
 
     private void createLibraryPage() {
