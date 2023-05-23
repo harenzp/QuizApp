@@ -1,16 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 
-class LibraryPage {
-    private JPanel panel;
+public class LibraryPage extends JPanel{
 
     public LibraryPage() {
         createPanel();
     }
 
     private void createPanel() {
-        panel = new JPanel(new GridBagLayout());
-        panel.setBackground(Color.white);
+        setLayout(new GridBagLayout());
+        setBackground(Color.white);
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(10, 10, 10, 10);
@@ -21,7 +20,7 @@ class LibraryPage {
         libraryLabel.setForeground(Color.black);
         constraints.gridx = 0;
         constraints.gridy = 0;
-        panel.add(libraryLabel, constraints);
+        add(libraryLabel, constraints);
 
         JTextField searchField = new JTextField(20);
         JButton createQuizButton = new JButton("+ Create Quiz");
@@ -31,12 +30,12 @@ class LibraryPage {
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         searchPanel.add(searchField);
         constraints.gridx = 1;
-        panel.add(searchPanel, constraints);
+        add(searchPanel, constraints);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         buttonPanel.add(createQuizButton);
         constraints.gridx = 2;
-        panel.add(buttonPanel, constraints);
+        add(buttonPanel, constraints);
 
         JLabel nameLabel = new JLabel("Name");
         JLabel categoryLabel = new JLabel("Category");
@@ -44,16 +43,13 @@ class LibraryPage {
 
         constraints.gridx = 0;
         constraints.gridy = 1;
-        panel.add(nameLabel, constraints);
+        add(nameLabel, constraints);
 
         constraints.gridx = 1;
-        panel.add(categoryLabel, constraints);
+        add(categoryLabel, constraints);
 
         constraints.gridx = 2;
-        panel.add(modifiedLabel, constraints);
+        add(modifiedLabel, constraints);
     }
 
-    public JPanel getPanel() {
-        return panel;
-    }
 }

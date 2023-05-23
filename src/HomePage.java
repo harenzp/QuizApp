@@ -104,7 +104,6 @@ public class HomePage extends JFrame {
                 dispose(); // Close the current frame
             }
         });
-        //para sa launch 
 
         add(panel);
         setVisible(true);

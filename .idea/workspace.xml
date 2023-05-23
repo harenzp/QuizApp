@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="12ab2c38-b393-466b-a5f5-bae6f1c2485d" name="Changes" comment="student login by roxanne alcordo">
+    <list default="true" id="12ab2c38-b393-466b-a5f5-bae6f1c2485d" name="Changes" comment="Clean vcs">
+      <change afterPath="$PROJECT_DIR$/src/LaunchPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HomePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LaunchBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LaunchBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LibraryPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LibraryPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TeacherLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TeacherLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TeacherSignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TeacherSignUp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +55,14 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="LaunchBar" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="LaunchBar" />
+      <module name="QuizApp" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="QuizApp" />
@@ -62,6 +70,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.LaunchBar" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -76,6 +88,14 @@
       <workItem from="1684229827461" duration="1269000" />
       <workItem from="1684238820115" duration="648000" />
     </task>
+    <task id="LOCAL-00001" summary="Clean vcs">
+      <created>1684686349846</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1684686349846</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -91,5 +111,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Clean vcs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean vcs" />
   </component>
 </project>

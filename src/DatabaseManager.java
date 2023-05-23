@@ -1,6 +1,6 @@
 import java.sql.*;
 
-class DatabaseManager {
+public class DatabaseManager {
     private final String databaseUrl;
     private final String username;
     private final String password;
@@ -8,6 +8,7 @@ class DatabaseManager {
 
 
     public DatabaseManager() throws SQLException {
+        // usba lang ni if unsa inyo local db guys
         this.databaseUrl = "jdbc:mysql://localhost:3306/quizup";
         this.username = "root";
         this.password = "Fsociety05";
