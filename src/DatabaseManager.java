@@ -6,9 +6,7 @@ public class DatabaseManager {
     private final String password;
     Connection connection;
 
-
     public DatabaseManager() throws SQLException {
-        // usba lang ni if unsa inyo local db guys
         this.databaseUrl = "jdbc:mysql://localhost:3306/quizup";
         this.username = "root";
         this.password = "Fsociety05";
@@ -35,7 +33,6 @@ public class DatabaseManager {
         }
     }
 
-
     public boolean authenticateUser(String username, String password) {
         String query = "SELECT * FROM accounts WHERE email = ? AND password = ?";
         try {
@@ -49,4 +46,53 @@ public class DatabaseManager {
         }
         return false;
     }
+
+    public boolean saveMultipleChoiceQuestion(String question, String option1, String option2, String option3, String option4, String correctOption) {
+        String sql = "INSERT INTO multiple_choice(question, option1, option2, option3, option4, correct_option) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, question);
+            statement.setString(2, option1);
+            statement.setString(3, option2);
+            statement.setString(4, option3);
+            statement.setString(5, option4);
+            statement.setString(6, correctOption);
+            int affectedRows = statement.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to save multiple-choice question: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean saveTrueFalseQuestion(String question, boolean answer) {
+        String sql = "INSERT INTO true_false(question, answer) VALUES (?, ?)";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, question);
+            statement.setBoolean(2, answer);
+            int affectedRows = statement.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to save true/false question: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean saveShortAnswerQuestion(String question, String answer) {
+        String sql = "INSERT INTO short_answer(question, answer) VALUES (?, ?)";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, question);
+            statement.setString(2, answer);
+            int affectedRows = statement.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to save short answer question: " + e.getMessage());
+            return false;
+        }
+    }
+
+
 }
+

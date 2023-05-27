@@ -22,6 +22,13 @@
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="fa7fc60e-100d-4d97-b103-e24e8f69816d" dataset="quizup.multiple_choice" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="fa7fc60e-100d-4d97-b103-e24e8f69816d" dataset="quizup.questions" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="fa7fc60e-100d-4d97-b103-e24e8f69816d" dataset="quizup.short_answer" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="fa7fc60e-100d-4d97-b103-e24e8f69816d" dataset="quizup.accounts" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="fa7fc60e-100d-4d97-b103-e24e8f69816d" dataset="quizup.true_false" active-filter-id="EMPTY_FILTER" />
+  </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
@@ -510,5 +517,8 @@
         </visibility-settings>
       </environment>
     </general-settings>
+  </component>
+  <component name="DBNavigator.Project.StatementExecutionManager">
+    <execution-variables />
   </component>
 </project>

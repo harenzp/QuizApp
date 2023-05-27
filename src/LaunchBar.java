@@ -38,16 +38,24 @@ public class LaunchBar {
         });
 
         JMenu roomsMenu = new JMenu("Rooms");
-
         JMenu reportsMenu = new JMenu("Reports");
-
         JMenu resultsMenu = new JMenu("Results");
+
+        JMenu questionsBank = new JMenu("Questions Bank");
+        questionsBank.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Handle the click event here
+                showPage(QuestionsBank.class);
+            }
+        });
 
         menuBar.add(launchMenu);
         menuBar.add(libraryMenu);
         menuBar.add(roomsMenu);
         menuBar.add(reportsMenu);
         menuBar.add(resultsMenu);
+        menuBar.add(questionsBank);
 
         // Set cursors
         menuBar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

@@ -18,25 +18,28 @@ public class LaunchPage extends JPanel {
         setLayout(new GridBagLayout());
 
         Font font = quiz.getFont();
-        quiz.setFont(new Font(font.getFontName(), Font.PLAIN, 30));
-        versus.setFont(new Font(font.getFontName(), Font.PLAIN, 30));
-        feedback.setFont(new Font(font.getFontName(), Font.PLAIN, 30));
+        quiz.setFont(new Font(font.getFontName(), Font.PLAIN, 28));
+        versus.setFont(new Font(font.getFontName(), Font.PLAIN, 28));
+        feedback.setFont(new Font(font.getFontName(), Font.PLAIN, 28));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(100, 60, 0, 60); //padding
 
         JLabel label1 = new JLabel(image1);
         label1.addMouseListener(new ImageHoverListener(label1, image1, image1Hover));
+        label1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         gbc.gridx = 0;
         add(label1, gbc);
 
         JLabel label2 = new JLabel(image2);
         label2.addMouseListener(new ImageHoverListener(label2, image2, image2Hover));
+        label2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         gbc.gridx = 1;
         add(label2, gbc);
 
         JLabel label3 = new JLabel(image3);
         label3.addMouseListener(new ImageHoverListener(label3, image3, image3Hover));
+        label3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         gbc.gridx = 2;
         add(label3, gbc);
 
