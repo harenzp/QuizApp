@@ -16,7 +16,7 @@ class TeacherLogin extends JFrame {
     public TeacherLogin() {
         setTitle("Teacher Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 600);
+        setSize(1280, 720);
         setLocationRelativeTo(null);
 
         //set components

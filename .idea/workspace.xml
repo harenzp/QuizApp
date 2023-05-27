@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="12ab2c38-b393-466b-a5f5-bae6f1c2485d" name="Changes" comment="Clean vcs">
-      <change afterPath="$PROJECT_DIR$/src/LaunchPage.java" afterDir="false" />
+    <list default="true" id="12ab2c38-b393-466b-a5f5-bae6f1c2485d" name="Changes" comment="Launch Page">
+      <change afterPath="$PROJECT_DIR$/myImages/feedback.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myImages/feedbackHover.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myImages/quiz.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myImages/quizHover.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myImages/versus.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/myImages/versusHover.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DatabaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myImages/Logo1.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HomePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LaunchBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LaunchBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LibraryPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LibraryPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LaunchPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LaunchPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/StudentEnter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StudentEnter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/StudentLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StudentLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TeacherLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TeacherLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TeacherSignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TeacherSignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestPage.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,10 +60,18 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\haren\IdeaProjects\QuizApp\myImages" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="LaunchBar" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="LaunchBar" />
@@ -95,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684686349846</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="OpenPages method and ActionListeners">
+      <created>1684804923304</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1684804923304</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,6 +138,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Clean vcs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clean vcs" />
+    <MESSAGE value="OpenPages method and ActionListeners" />
+    <MESSAGE value="Launch Page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Launch Page" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

@@ -21,7 +21,8 @@ public class HomePage extends JFrame {
     public HomePage() throws IOException {
         setTitle("QuizUP");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 600);
+        setSize(1280, 720);
+
         setLocationRelativeTo(null);
 
         //panels

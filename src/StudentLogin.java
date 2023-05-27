@@ -12,7 +12,7 @@ public class StudentLogin extends JFrame {
     public StudentLogin() {
         setTitle("Student Login Screen");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 600);
+        setSize(1280, 720);
         setLocationRelativeTo(null);
 
         //Create the main panel and set its layout to BorderLayout

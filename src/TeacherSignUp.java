@@ -16,7 +16,7 @@ public class TeacherSignUp extends JFrame {
         // Set up the JFrame
         setTitle("New Teacher Account");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 600);
+        setSize(1280, 720);
         setLocationRelativeTo(null);
 
         // label sa igbaw

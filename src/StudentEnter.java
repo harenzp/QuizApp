@@ -11,7 +11,7 @@ public class StudentEnter extends JFrame {
 
     public StudentEnter(String roomCode) {
         setTitle("Student Enter Screen");
-        setSize(1000, 600);
+        setSize(1280, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
