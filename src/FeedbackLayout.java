@@ -13,7 +13,7 @@ public class FeedbackLayout extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 0, 5, 0);
 
-        JLabel titleLabel = new JLabel("QuizUp");
+        JLabel titleLabel = new JLabel("Feedback");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
         gbc.gridx = 0;
