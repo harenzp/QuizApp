@@ -12,8 +12,8 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="fa7fc60e-100d-4d97-b103-e24e8f69816d">
-      <console name="quizUPConnection" type="STANDARD" schema="quizup" session="Main" />
+    <connection id="b499ee4b-ab9d-468b-9ef1-fceafae04027">
+      <console name="getConnection" type="STANDARD" schema="quizup" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -22,12 +22,16 @@
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
-  <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="fa7fc60e-100d-4d97-b103-e24e8f69816d" dataset="quizup.multiple_choice" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="fa7fc60e-100d-4d97-b103-e24e8f69816d" dataset="quizup.questions" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="fa7fc60e-100d-4d97-b103-e24e8f69816d" dataset="quizup.short_answer" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="fa7fc60e-100d-4d97-b103-e24e8f69816d" dataset="quizup.accounts" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="fa7fc60e-100d-4d97-b103-e24e8f69816d" dataset="quizup.true_false" active-filter-id="EMPTY_FILTER" />
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.MethodExecutionManager">
+    <method-browser />
+    <execution-history>
+      <group-entries value="true" />
+      <execution-inputs />
+    </execution-history>
+    <argument-values-cache />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
@@ -35,10 +39,10 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="fa7fc60e-100d-4d97-b103-e24e8f69816d" active="true" signed="true">
+      <connection id="b499ee4b-ab9d-468b-9ef1-fceafae04027" active="true" signed="true">
         <database>
-          <name value="quizUPConnection" />
-          <description value="quiz up database" />
+          <name value="getConnection" />
+          <description value="QuizUp" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
           <database-version value="8.0" />
@@ -517,8 +521,5 @@
         </visibility-settings>
       </environment>
     </general-settings>
-  </component>
-  <component name="DBNavigator.Project.StatementExecutionManager">
-    <execution-variables />
   </component>
 </project>
