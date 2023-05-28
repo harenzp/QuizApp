@@ -1,132 +1,253 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Question extends JPanel {
-    public enum QuestionType {
-        MULTIPLE_CHOICE,
-        TRUE_FALSE,
-        IDENTIFICATION
+    private DefaultListModel<String> questionListModel;
+    private JPanel mainPanel, selectTypePanel, multipleChoicePanel, trueFalsePanel, shortAnswerPanel;
+    private DatabaseManager databaseManager;
+
+    // Components for multiple choice question panel
+    private JTextField mcQuestionField, mcOption1Field, mcOption2Field, mcOption3Field, mcOption4Field;
+    private JComboBox<String> mcCorrectOptionBox;
+
+    // Components for true or false question panel
+    private JTextField tfQuestionField;
+    private JRadioButton trueRadioButton, falseRadioButton;
+
+    // Components for short answer question panel
+    private JTextField saQuestionField, saAnswerField;
+
+    public Question(DefaultListModel<String> questionListModel) {
+        try {
+            databaseManager = new DatabaseManager();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to connect to the database.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        this.questionListModel = questionListModel;
+        setLayout(new CardLayout());
+        setPreferredSize(new Dimension(500, 300));
+
+        selectTypePanel = createSelectTypePanel();
+        multipleChoicePanel = createMultipleChoicePanel();
+        trueFalsePanel = createTrueFalsePanel();
+        shortAnswerPanel = createShortAnswerPanel();
+
+        add(selectTypePanel, "selectType");
+        add(multipleChoicePanel, "multipleChoice");
+        add(trueFalsePanel, "trueFalse");
+        add(shortAnswerPanel, "shortAnswer");
     }
 
-    private int questionNumber;
-    private QuestionType questionType;
-    private JPanel questionPanel;
+    private JPanel createSelectTypePanel() {
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.setName("selectType");
 
-    private String questionText;  // New field to store the question text
-    private String answer;        // New field to store the answer
+        JButton multipleChoiceButton = new JButton("Multiple Choice");
+        multipleChoiceButton.addActionListener(new SelectTypeButtonListener("multipleChoice"));
+        panel.add(multipleChoiceButton);
 
-    public Question(int questionNumber) {
-        this.questionNumber = questionNumber;
-        this.questionType = QuestionType.MULTIPLE_CHOICE; // Set default question type to Multiple Choice
-        createPanel();
+        JButton trueFalseButton = new JButton("True/False");
+        trueFalseButton.addActionListener(new SelectTypeButtonListener("trueFalse"));
+        panel.add(trueFalseButton);
+
+        JButton shortAnswerButton = new JButton("Short Answer");
+        shortAnswerButton.addActionListener(new SelectTypeButtonListener("shortAnswer"));
+        panel.add(shortAnswerButton);
+
+        return panel;
     }
 
-    public void createPanel() {
-        setLayout(new BorderLayout());
-        setBackground(Color.white);
+    private JPanel createMultipleChoicePanel() {
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.setName("multipleChoice");
 
-        // Create the main question frame panel
-        JPanel questionFramePanel = new JPanel();
-        questionFramePanel.setLayout(new BorderLayout());
-        questionFramePanel.setBackground(Color.white);
+        mcQuestionField = new JTextField();
+        panel.add(new JLabel("Question:"));
+        panel.add(mcQuestionField);
 
-        // Create the question type selection panel
-        JPanel typePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        typePanel.setBackground(Color.white);
+        mcOption1Field = new JTextField();
+        panel.add(new JLabel("Option 1:"));
+        panel.add(mcOption1Field);
 
-        JLabel typeLabel = new JLabel("Type:");
+        mcOption2Field = new JTextField();
+        panel.add(new JLabel("Option 2:"));
+        panel.add(mcOption2Field);
 
-        JComboBox<String> typeComboBox = new JComboBox<>(new String[]{"Multiple Choice", "True/False", "Identification"});
-        typePanel.add(typeLabel);
-        typePanel.add(typeComboBox);
+        mcOption3Field = new JTextField();
+        panel.add(new JLabel("Option 3:"));
+        panel.add(mcOption3Field);
 
-        typeComboBox.addActionListener(e -> {
-            String selectedType = (String) typeComboBox.getSelectedItem();
-            QuestionType type = getQuestionType(selectedType);
-            setQuestionType(type);
-            createQuestionPanel(type);
-        });
+        mcOption4Field = new JTextField();
+        panel.add(new JLabel("Option 4:"));
+        panel.add(mcOption4Field);
 
-        questionFramePanel.add(typePanel, BorderLayout.NORTH);
+        mcCorrectOptionBox = new JComboBox<>(new String[]{"Option 1", "Option 2", "Option 3", "Option 4"});
+        panel.add(new JLabel("Correct Option:"));
+        panel.add(mcCorrectOptionBox);
 
-        // Create the question panel
-        questionPanel = new JPanel();
-        questionPanel.setLayout(new BorderLayout());
-        questionPanel.setBackground(Color.white);
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new BackButtonListener());
+        panel.add(backButton);
 
-        questionFramePanel.add(questionPanel, BorderLayout.CENTER);
-
-        // Create the save button
         JButton saveButton = new JButton("Save");
-        saveButton.setBackground(Color.decode("#DD4A48"));
-        saveButton.addActionListener(e -> saveQuestion());  // Save the question when the save button is clicked
-        questionFramePanel.add(saveButton, BorderLayout.SOUTH);
+        saveButton.addActionListener(new SaveButtonListener(panel));
+        panel.add(saveButton);
 
-        add(questionFramePanel);
+        return panel;
     }
 
-    private void createQuestionPanel(QuestionType type) {
-        // Create the specific question panel based on the selected question type
-        JPanel specificQuestionPanel;
-        switch (type) {
-            case MULTIPLE_CHOICE:
-                specificQuestionPanel = new MultipleChoicePanel();
-                break;
-            case TRUE_FALSE:
-                specificQuestionPanel = new TrueFalsePanel();
-                break;
-            case IDENTIFICATION:
-                specificQuestionPanel = new IdentificationPanel();
-                break;
-            default:
-                specificQuestionPanel = new JPanel(); // Default to a generic panel if the question type is not recognized
-                break;
+    private JPanel createTrueFalsePanel() {
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.setName("trueFalse");
+
+        tfQuestionField = new JTextField();
+        panel.add(new JLabel("Question:"));
+        panel.add(tfQuestionField);
+
+        trueRadioButton = new JRadioButton("True");
+        falseRadioButton = new JRadioButton("False");
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(trueRadioButton);
+        buttonGroup.add(falseRadioButton);
+        panel.add(trueRadioButton);
+        panel.add(falseRadioButton);
+
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new BackButtonListener());
+        panel.add(backButton);
+
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(new SaveButtonListener(panel));
+        panel.add(saveButton);
+
+        return panel;
+    }
+
+    private JPanel createShortAnswerPanel() {
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.setName("shortAnswer");
+
+        saQuestionField = new JTextField();
+        panel.add(new JLabel("Question:"));
+        panel.add(saQuestionField);
+
+        saAnswerField = new JTextField();
+        panel.add(new JLabel("Answer:"));
+        panel.add(saAnswerField);
+
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(new BackButtonListener());
+        panel.add(backButton);
+
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(new SaveButtonListener(panel));
+        panel.add(saveButton);
+
+        return panel;
+    }
+
+    private class SelectTypeButtonListener implements ActionListener {
+        private String panelName;
+
+        public SelectTypeButtonListener(String panelName) {
+            this.panelName = panelName;
         }
 
-        // Update the question panel with the specific question panel
-        questionPanel.removeAll();
-        questionPanel.add(specificQuestionPanel, BorderLayout.CENTER);
-        questionPanel.revalidate();
-        questionPanel.repaint();
-    }
-
-    private QuestionType getQuestionType(String selectedType) {
-        if (selectedType.equals("Multiple Choice")) {
-            return QuestionType.MULTIPLE_CHOICE;
-        } else if (selectedType.equals("True/False")) {
-            return QuestionType.TRUE_FALSE;
-        } else if (selectedType.equals("Identification")) {
-            return QuestionType.IDENTIFICATION;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CardLayout cardLayout = (CardLayout) getLayout();
+            cardLayout.show(Question.this, panelName);
         }
-        return null;
     }
 
-    public void setQuestionType(QuestionType questionType) {
-        this.questionType = questionType;
+    private class BackButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CardLayout cardLayout = (CardLayout) getLayout();
+            cardLayout.show(Question.this, "selectType");
+        }
     }
 
-    public void saveQuestion() {
-        // Save the question details based on the selected question type
-//        if (questionPanel instanceof MultipleChoicePanel) {
-//            MultipleChoicePanel mcPanel = (MultipleChoicePanel) questionPanel;
-//            this.questionText = mcPanel.getQuestion();
-//            this.answer = mcPanel.getAnswer();
-//        } else if (questionPanel instanceof IdentificationPanel) {
-//            IdentificationPanel idPanel = (IdentificationPanel) questionPanel;
-//            this.questionText = idPanel.getQuestion();
-//            this.answer = idPanel.getAnswer();
-//        } else if (questionPanel instanceof TrueFalsePanel) {
-//            TrueFalsePanel tfPanel = (TrueFalsePanel) questionPanel;
-//            this.questionText = tfPanel.getQuestion();
-//            this.answer = tfPanel.getAnswer();
-//        }
+    private class SaveButtonListener implements ActionListener {
+        private JPanel currentPanel;
+
+        public SaveButtonListener(JPanel panel) {
+            this.currentPanel = panel;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String panelName = currentPanel.getName();
+            if (panelName.equals("multipleChoice")) {
+                saveMultipleChoiceQuestion();
+            } else if (panelName.equals("trueFalse")) {
+                saveTrueFalseQuestion();
+            } else if (panelName.equals("shortAnswer")) {
+                saveShortAnswerQuestion();
+            }
+        }
+
+        private void saveMultipleChoiceQuestion() {
+            String question = mcQuestionField.getText();
+            String option1 = mcOption1Field.getText();
+            String option2 = mcOption2Field.getText();
+            String option3 = mcOption3Field.getText();
+            String option4 = mcOption4Field.getText();
+            String correctOption = mcCorrectOptionBox.getSelectedItem().toString();
+
+            // Save the question to the database or any other data storage mechanism
+            databaseManager.saveMultipleChoiceQuestion(question, option1, option2, option3, option4, correctOption);
+
+            // Add the question to the question list
+            String questionText = " " + question; // Modify the format as per your requirement
+            questionListModel.addElement(questionText);
+
+            JOptionPane.showMessageDialog(null, "Multiple choice question saved successfully!");
+            clearFields();
+        }
+
+        private void saveTrueFalseQuestion() {
+            String question = tfQuestionField.getText();
+            boolean answer = trueRadioButton.isSelected();
+
+            // Save the question to the database or any other data storage mechanism
+            databaseManager.saveTrueFalseQuestion(question, answer);
+
+            // Add the question to the question list
+            String questionText = " " + question; // Modify the format as per your requirement
+            questionListModel.addElement(questionText);
+
+            JOptionPane.showMessageDialog(null, "True/false question saved successfully!");
+            clearFields();
+        }
+
+        private void saveShortAnswerQuestion() {
+            String question = saQuestionField.getText();
+            String answer = saAnswerField.getText();
+
+            // Save the question to the database or any other data storage mechanism
+            databaseManager.saveShortAnswerQuestion(question, answer);
+
+            // Add the question to the question list
+            String questionText = " " + question; // Modify the format as per your requirement
+            questionListModel.addElement(questionText);
+
+            JOptionPane.showMessageDialog(null, "Short answer question saved successfully!");
+            clearFields();
+        }
+
+        private void clearFields() {
+            Component[] components = currentPanel.getComponents();
+            for (Component component : components) {
+                if (component instanceof JTextField) {
+                    ((JTextField) component).setText("");
+                }
+            }
+        }
     }
 
-    public String getQuestionText() {
-        return questionText;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
 }

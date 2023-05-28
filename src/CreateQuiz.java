@@ -11,8 +11,8 @@ public class CreateQuiz extends JPanel {
     private JComboBox<String> categoryComboBox;
     private JSpinner dateSpinner;
     private JSpinner timeSpinner;
-    private JPanel editQuestionPanel;
-    private JPanel questionListPanel;
+    private DefaultListModel<String> questionListModel;
+    private JList<String> questionList;
 
     public CreateQuiz() {
         questions = new ArrayList<>();
@@ -101,46 +101,27 @@ public class CreateQuiz extends JPanel {
         addQuestionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addQuestion();
+                JFrame questionFrame = new JFrame("Question");
+                Question questionPanel = new Question(questionListModel);
+                questionFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                questionFrame.getContentPane().add(questionPanel);
+                questionFrame.setPreferredSize(new Dimension(500, 500));
+                questionFrame.pack();
+                questionFrame.setLocationRelativeTo(null);
+                questionFrame.setVisible(true);
             }
         });
 
-        add(quizSetupPanel, BorderLayout.NORTH);
-
-        // Edit Question Panel
-        editQuestionPanel = new JPanel();
-        editQuestionPanel.setBackground(Color.white);
-        add(editQuestionPanel, BorderLayout.CENTER);
-
         // Question List Panel
-        questionListPanel = new JPanel();
-        questionListPanel.setLayout(new BoxLayout(questionListPanel, BoxLayout.Y_AXIS));
-        questionListPanel.setBackground(Color.white);
+        JPanel questionListPanel = new JPanel(new BorderLayout());
+        questionListModel = new DefaultListModel<>();
+        questionList = new JList<>(questionListModel);
+        JScrollPane questionScrollPane = new JScrollPane(questionList);
+        questionListPanel.add(new JLabel("Questions"), BorderLayout.NORTH);
+        questionListPanel.add(questionScrollPane, BorderLayout.CENTER);
 
-        JScrollPane questionScrollPane = new JScrollPane(questionListPanel);
-        add(questionScrollPane, BorderLayout.EAST);
-    }
-
-    public void addQuestion() {
-        Question newQuestion = new Question(questions.size() + 1);
-
-        // Add the question panel to the editQuestionPanel
-        editQuestionPanel.removeAll();
-        editQuestionPanel.add(newQuestion);
-        editQuestionPanel.revalidate();
-        editQuestionPanel.repaint();
-
-        questions.add(newQuestion);
-
-        // Create a new panel for the question in the question list
-        JPanel questionListItemPanel = new JPanel();
-        questionListItemPanel.setBackground(Color.white);
-        questionListItemPanel.setLayout(new BorderLayout());
-        JLabel questionLabel = new JLabel("Question " + questions.size());
-        questionListItemPanel.add(questionLabel, BorderLayout.NORTH);
-
-        questionListPanel.add(questionListItemPanel); // Add the question list item panel to the question list panel
-        questionListPanel.revalidate();
-        questionListPanel.repaint();
+        // Adding components to the main panel
+        add(quizSetupPanel, BorderLayout.NORTH);
+        add(questionListPanel, BorderLayout.CENTER);
     }
 }

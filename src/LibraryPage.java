@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class LibraryPage extends JPanel{
 
@@ -25,6 +27,26 @@ public class LibraryPage extends JPanel{
         add(libraryLabel, constraints);
 
         JTextField searchField = new JTextField(20);
+        searchField.setText("Search");
+        searchField.setForeground(Color.GRAY);
+
+        searchField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (searchField.getText().equals("Search")) {
+                    searchField.setText("");
+                    searchField.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (searchField.getText().isEmpty()) {
+                    searchField.setText("Search");
+                    searchField.setForeground(Color.GRAY);
+                }
+            }
+        });
+
         JButton createQuizButton = new JButton("+ Create Quiz");
         createQuizButton.setBackground(Color.decode("#DD4A48"));
         createQuizButton.setForeground(Color.white);

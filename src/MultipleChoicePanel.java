@@ -70,6 +70,7 @@ public class MultipleChoicePanel extends JPanel {
         addOptionField(); // Add initial option field
         addOptionField(); // Add second option field
         addOptionField(); // Add third option field
+        addOptionField();// Add fourth option field
 
     }
 

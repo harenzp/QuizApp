@@ -4,9 +4,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class LaunchBar {
-
     private LibraryPage libraryPage;
     private LaunchPage launchPage;
+    private ReportPage reportPage;
     private JPanel panel, page;
     public LaunchBar(){
 
@@ -39,6 +39,13 @@ public class LaunchBar {
 
         JMenu roomsMenu = new JMenu("Rooms");
         JMenu reportsMenu = new JMenu("Reports");
+        reportsMenu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Handle the click event here
+                showPage(ReportPage.class);
+            }
+        });
         JMenu resultsMenu = new JMenu("Results");
 
         JMenu questionsBank = new JMenu("Questions Bank");
