@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LibraryPage extends JPanel{
 
@@ -50,6 +52,20 @@ public class LibraryPage extends JPanel{
 
         constraints.gridx = 2;
         add(modifiedLabel, constraints);
+
+        // Add ActionListener to the createQuizButton
+        createQuizButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(LibraryPage.this);
+                frame.getContentPane().removeAll();
+                frame.getContentPane().add(new CreateQuiz());
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+
+
     }
 
 }
