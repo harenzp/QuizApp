@@ -30,12 +30,9 @@ public class LaunchPage extends JPanel {
         label1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                closeCurrentPage();
                 LaunchBar launchBar = new LaunchBar();
                 launchBar.showPage(CreateQuiz.class);
-                dispose();
-            }
-
-            private void dispose() {
             }
         });
         label1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -50,6 +47,15 @@ public class LaunchPage extends JPanel {
 
         JLabel label3 = new JLabel(image3);
         label3.addMouseListener(new ImageHoverListener(label3, image3, image3Hover));
+        label3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                closeCurrentPage();
+                LaunchBar launchBar = new LaunchBar();
+                launchBar.showPage(FeedbackLayout.class);
+            }
+        });
+
         label3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         gbc.gridx = 2;
         add(label3, gbc);
@@ -66,7 +72,16 @@ public class LaunchPage extends JPanel {
         gbc.gridx = 2;
         add(feedback, gbc);
     }
-
+    private void closeCurrentPage() {
+        Container container = getParent();
+        while (container != null) {
+            if (container instanceof JFrame) {
+                ((JFrame) container).dispose();
+                return;
+            }
+            container = container.getParent();
+        }
+    }
     private static class ImageHoverListener extends MouseAdapter {
         private final JLabel label;
         private final ImageIcon defaultImage;

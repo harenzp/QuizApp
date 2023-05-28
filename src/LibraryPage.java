@@ -65,15 +65,15 @@ public class LibraryPage extends JPanel {
         constraints.gridx = 2;
         add(buttonPanel, constraints);
 
+
+
         // Add ActionListener to the createQuizButton
         createQuizButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(LibraryPage.this);
-                frame.getContentPane().removeAll();
-                frame.getContentPane().add(new CreateQuiz());
-                frame.revalidate();
-                frame.repaint();
+                closeCurrentPage();
+                LaunchBar launchBar = new LaunchBar();
+                launchBar.showPage(CreateQuiz.class);
             }
         });
 
@@ -151,6 +151,16 @@ public class LibraryPage extends JPanel {
         });
     }
 
+    private void closeCurrentPage() {
+        Container container = getParent();
+        while (container != null) {
+            if (container instanceof JFrame) {
+                ((JFrame) container).dispose();
+                return;
+            }
+            container = container.getParent();
+        }
+    }
     private void filterQuizzes(String searchText) {
         Component[] components = getComponents();
 
