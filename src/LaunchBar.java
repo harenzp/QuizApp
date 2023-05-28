@@ -38,6 +38,13 @@ public class LaunchBar {
         });
 
         JMenu roomsMenu = new JMenu("Rooms");
+        roomsMenu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Handle the click event here
+                showPage(RoomPage.class);
+            }
+        });
         JMenu reportsMenu = new JMenu("Reports");
         reportsMenu.addMouseListener(new MouseAdapter() {
             @Override
