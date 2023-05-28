@@ -94,5 +94,33 @@ public class DatabaseManager {
     }
 
 
+    public boolean saveQuizDetails(String title, String category, String date, String time) {
+        String sql = "INSERT INTO Quiz (title, category, date, time) VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, title);
+            statement.setString(2, category);
+            statement.setString(3, date);
+            statement.setString(4, time);
+            int affectedRows = statement.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to save quiz details: " + e.getMessage());
+            return false;
+        }
+    }
+    public boolean saveQuestion(int quizId, String questionText) {
+        String sql = "INSERT INTO Question (quiz_id, question_text) VALUES (?, ?)";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, quizId);
+            statement.setString(2, questionText);
+            int affectedRows = statement.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.out.println("Failed to save question: " + e.getMessage());
+            return false;
+        }
+    }
 }
 

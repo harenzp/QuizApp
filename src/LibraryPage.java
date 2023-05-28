@@ -1,11 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-public class LibraryPage extends JPanel{
+public class LibraryPage extends JPanel {
 
     public LibraryPage() {
         createPanel();
@@ -38,6 +39,7 @@ public class LibraryPage extends JPanel{
                     searchField.setForeground(Color.BLACK);
                 }
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 if (searchField.getText().isEmpty()) {
@@ -62,8 +64,11 @@ public class LibraryPage extends JPanel{
         add(buttonPanel, constraints);
 
         JLabel nameLabel = new JLabel("Name");
+        nameLabel.setFont(nameLabel.getFont().deriveFont(Font.BOLD));
         JLabel categoryLabel = new JLabel("Category");
-        JLabel modifiedLabel = new JLabel("Modified");
+        categoryLabel.setFont(categoryLabel.getFont().deriveFont(Font.BOLD));
+        JLabel dateLabel = new JLabel("Date");
+        dateLabel.setFont(dateLabel.getFont().deriveFont(Font.BOLD));
 
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -73,7 +78,7 @@ public class LibraryPage extends JPanel{
         add(categoryLabel, constraints);
 
         constraints.gridx = 2;
-        add(modifiedLabel, constraints);
+        add(dateLabel, constraints);
 
         // Add ActionListener to the createQuizButton
         createQuizButton.addActionListener(new ActionListener() {
@@ -87,7 +92,70 @@ public class LibraryPage extends JPanel{
             }
         });
 
+        // Retrieve quizzes from the database
+        try {
+            DatabaseManager databaseManager = new DatabaseManager();
+            Connection connection = databaseManager.getDatabaseConnection();
+            String query = "SELECT title, category, date FROM Quiz";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
 
+            int row = 2;
+            while (resultSet.next()) {
+                String title = resultSet.getString("title");
+                String category = resultSet.getString("category");
+                String date = resultSet.getString("date");
+
+                String formattedQuizInfo = String.format("<html><b>%s</b> - Category: %s - Date: %s</html>", title, category, date);
+
+                JPanel quizPanel = new JPanel(new GridBagLayout());
+                quizPanel.setBackground(Color.white);
+                quizPanel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        // Handle click event
+                        // Replace the code below with your desired logic
+                        System.out.println("Clicked on quiz: " + title);
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        quizPanel.setBackground(Color.decode("#FFDDDD")); // Light red background when hovered
+                        quizPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        quizPanel.setBackground(Color.white);
+                        quizPanel.setCursor(Cursor.getDefaultCursor());
+                    }
+                });
+
+                JLabel quizInfoLbl = new JLabel(formattedQuizInfo);
+                quizInfoLbl.setForeground(Color.black); // Set the color of the label to black
+
+                GridBagConstraints panelConstraints = new GridBagConstraints();
+                panelConstraints.gridx = 0;
+                panelConstraints.gridy = 0;
+                panelConstraints.anchor = GridBagConstraints.NORTHWEST;
+                panelConstraints.insets = new Insets(5, 5, 5, 5);
+                quizPanel.add(quizInfoLbl, panelConstraints);
+
+                constraints.gridx = 0;
+                constraints.gridy = row;
+                constraints.gridwidth = 3;
+                constraints.fill = GridBagConstraints.HORIZONTAL;
+                add(quizPanel, constraints);
+
+                row++;
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to retrieve quizzes.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
-
 }

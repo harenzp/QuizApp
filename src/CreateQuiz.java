@@ -2,10 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CreateQuiz extends JPanel {
+    private DatabaseManager databaseManager;
     private List<Question> questions;
     private JTextField quizTitleField;
     private JComboBox<String> categoryComboBox;
@@ -15,6 +21,12 @@ public class CreateQuiz extends JPanel {
     private JList<String> questionList;
 
     public CreateQuiz() {
+        try {
+            databaseManager = new DatabaseManager();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to connect to the database.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
         questions = new ArrayList<>();
         createPanel();
     }
@@ -47,6 +59,7 @@ public class CreateQuiz extends JPanel {
         quizSetupPanel.add(quizTitleField, constraints);
 
         JLabel categoryLabel = new JLabel("Category:");
+        categoryLabel.setFont(categoryLabel.getFont().deriveFont(Font.BOLD));
         categoryComboBox = new JComboBox<>(new String[]{"Category 1", "Category 2", "Category 3"});
 
         JLabel dateLabel = new JLabel("Date:");
@@ -101,14 +114,7 @@ public class CreateQuiz extends JPanel {
         addQuestionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame questionFrame = new JFrame("Question");
-                Question questionPanel = new Question(questionListModel);
-                questionFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                questionFrame.getContentPane().add(questionPanel);
-                questionFrame.setPreferredSize(new Dimension(500, 500));
-                questionFrame.pack();
-                questionFrame.setLocationRelativeTo(null);
-                questionFrame.setVisible(true);
+                addQuestion();
             }
         });
 
@@ -120,8 +126,93 @@ public class CreateQuiz extends JPanel {
         questionListPanel.add(new JLabel("Questions"), BorderLayout.NORTH);
         questionListPanel.add(questionScrollPane, BorderLayout.CENTER);
 
-        // Adding components to the main panel
+        // Save Quiz Button
+        JButton saveQuizButton = new JButton("Save Quiz");
+        saveQuizButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (areFieldsEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    saveQuiz();
+                }
+            }
+        });
+        // Add components to the main panel
         add(quizSetupPanel, BorderLayout.NORTH);
         add(questionListPanel, BorderLayout.CENTER);
+        add(saveQuizButton, BorderLayout.SOUTH);
+    }
+    private boolean areFieldsEmpty() {
+        String title = quizTitleField.getText().trim(); // Trim leading and trailing whitespace
+        String category = categoryComboBox.getSelectedItem().toString();
+        Date date = (Date) dateSpinner.getValue();
+        Date time = (Date) timeSpinner.getValue();
+
+        return title.isEmpty() || title.equals("Untitled Quiz") || category.isEmpty();
+    }
+    private void addQuestion() {
+        JFrame questionFrame = new JFrame("Question");
+        Question questionPanel = new Question(questionListModel);
+        questionFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        questionFrame.getContentPane().add(questionPanel);
+        questionFrame.setPreferredSize(new Dimension(500, 500));
+        questionFrame.pack();
+        questionFrame.setLocationRelativeTo(null);
+        questionFrame.setVisible(true);
+    }
+
+    private void saveQuiz() {
+        String title = quizTitleField.getText();
+        String category = categoryComboBox.getSelectedItem().toString();
+        Date date = (Date) dateSpinner.getValue();
+        Date time = (Date) timeSpinner.getValue();
+
+        try {
+            // Save quiz details to the database or any other data storage mechanism
+            saveQuizDetails(title, category, date, time);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to save quiz details.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Exit the method if an error occurs
+        }
+
+//        // Save each question to the database or any other data storage mechanism
+//        for (Question question : questions) {
+//            saveQuestion(question);
+//        }
+
+        JOptionPane.showMessageDialog(null, "Quiz saved successfully!");
+        resetQuiz();
+
+
+    }
+
+    private void saveQuizDetails(String title, String category, Date date, Date time) throws SQLException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        String formattedDate = dateFormat.format(date);
+        String formattedTime = timeFormat.format(time);
+
+        databaseManager.saveQuizDetails(title, category, formattedDate, formattedTime);
+    }
+
+//    private void saveQuestion(Question question) {
+//        try {
+//            databaseManager.saveQuestion(question);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Failed to save question.", "Error", JOptionPane.ERROR_MESSAGE);
+//        }
+//    }
+
+    private void resetQuiz() {
+        quizTitleField.setText("Untitled Quiz");
+        quizTitleField.setForeground(Color.gray);
+        categoryComboBox.setSelectedIndex(0);
+        dateSpinner.setValue(new Date());
+        timeSpinner.setValue(new Date());
+        questions.clear();
+        questionListModel.clear();
     }
 }
