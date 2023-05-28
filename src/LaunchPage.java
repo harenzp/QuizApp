@@ -27,6 +27,17 @@ public class LaunchPage extends JPanel {
 
         JLabel label1 = new JLabel(image1);
         label1.addMouseListener(new ImageHoverListener(label1, image1, image1Hover));
+        label1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                LaunchBar launchBar = new LaunchBar();
+                launchBar.showPage(CreateQuiz.class);
+                dispose();
+            }
+
+            private void dispose() {
+            }
+        });
         label1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         gbc.gridx = 0;
         add(label1, gbc);
@@ -77,4 +88,5 @@ public class LaunchPage extends JPanel {
             label.setIcon(defaultImage);
         }
     }
+
 }

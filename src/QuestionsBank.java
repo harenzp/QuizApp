@@ -2,12 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 // wala pa mahuman ang layout ug ang pag retrieve pero mo work na ang pag save sa db
 
 public class QuestionsBank extends JPanel{
-    private JFrame frame;
+    JLabel questionsBankLabel;
     private JPanel mainPanel, createPanel, selectTypePanel, multipleChoicePanel, trueFalsePanel, shortAnswerPanel;
     private DatabaseManager databaseManager;
 
@@ -21,6 +22,8 @@ public class QuestionsBank extends JPanel{
 
     // Components for short answer question panel
     private JTextField saQuestionField, saAnswerField;
+    // Component to display saved questions
+    private JTextArea savedQuestionsArea;
 
     public QuestionsBank() {
         try {
@@ -33,10 +36,30 @@ public class QuestionsBank extends JPanel{
         mainPanel = new JPanel();
         mainPanel.setLayout(new CardLayout());
 
-        createPanel = new JPanel();
+        createPanel = new JPanel(new GridBagLayout());
         JButton createButton = new JButton("Create a New Question");
         createButton.addActionListener(new CreateButtonListener());
-        createPanel.add(createButton);
+
+        // Add a text area to display saved questions
+        savedQuestionsArea = new JTextArea(20, 30);
+        savedQuestionsArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(savedQuestionsArea);
+
+        questionsBankLabel = new JLabel("Questions Bank");
+        Font font = questionsBankLabel.getFont();
+        questionsBankLabel.setFont(new Font(font.getFontName(), Font.BOLD, 28));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(20, 60, 0, 60); //padding
+        createPanel.add(questionsBankLabel, gbc);
+        gbc.gridy = 1;
+        createPanel.add(createButton, gbc);
+        gbc.insets = new Insets(20, 60, 0, 60);
+        gbc.gridy = 2;
+        createPanel.add(scrollPane, gbc);
+
+        // Retrieve and display saved questions
+        displaySavedQuestions();
 
         selectTypePanel = createSelectTypePanel();
         multipleChoicePanel = createMultipleChoicePanel();
@@ -50,7 +73,59 @@ public class QuestionsBank extends JPanel{
         mainPanel.add(shortAnswerPanel, "shortAnswer");
 
         add(mainPanel);
+
     }
+
+    private void displaySavedQuestions() {
+        try {
+            ResultSet resultSet = databaseManager.getSavedQuestions();
+            StringBuilder sb = new StringBuilder();
+            String previousType = null;
+
+            while (resultSet.next()) {
+                String type = resultSet.getString("type");
+                String question = resultSet.getString("question");
+                String option1 = resultSet.getString("option1");
+                String option2 = resultSet.getString("option2");
+                String option3 = resultSet.getString("option3");
+                String option4 = resultSet.getString("option4");
+                String answer = resultSet.getString("answer");
+
+                if (!type.equals(previousType)) {
+                    // Calculate the indentation for center alignment
+                    int indentation = 34;
+                    sb.append(String.format("%" + indentation + "s", "")).append("Type: ").append(type).append("\n");
+                    sb.append("----------------------------------------------------------------\n\n");
+                    previousType = type;
+                }
+
+                sb.append("Question: ").append(question).append("\n");
+
+                if (option1 != null) {
+                    sb.append("Options:\n");
+                    sb.append("1. ").append(option1).append("\n");
+                    sb.append("2. ").append(option2).append("\n");
+                    sb.append("3. ").append(option3).append("\n");
+                    sb.append("4. ").append(option4).append("\n");
+                }
+
+                sb.append("Answer: ").append(answer).append("\n");
+                sb.append("\n");
+            }
+
+            savedQuestionsArea.setText(sb.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to retrieve saved questions.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+
+
+
+
+
 
     private JPanel createSelectTypePanel() {
         JPanel panel = new JPanel(new GridLayout(0, 1));

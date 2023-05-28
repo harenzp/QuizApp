@@ -48,8 +48,8 @@ public class CreateQuiz extends JPanel {
         quizTitleField.setFont(quizTitleField.getFont().deriveFont(Font.BOLD, 20));
         quizTitleField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                quizTitleField.setText("");
-                quizTitleField.setForeground(Color.black);
+        quizTitleField.setText("");
+        quizTitleField.setForeground(Color.black);
             }
         });
 

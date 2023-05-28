@@ -8,14 +8,14 @@ public class LaunchBar {
     private LaunchPage launchPage;
     private ReportPage reportPage;
     private JPanel panel, page;
-    public LaunchBar(){
+    public LaunchBar() {
 
         JFrame frame = new JFrame("QuizUp");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1280, 720);
         frame.setLocationRelativeTo(null);
 
-        panel = new JPanel(new FlowLayout());
+        panel = new JPanel();
 
         JMenuBar menuBar = new JMenuBar();
 
@@ -67,21 +67,18 @@ public class LaunchBar {
         // Set cursors
         menuBar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+        Component LaunchPage = new LaunchPage();
+        panel.add(LaunchPage);
+
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(menuBar, BorderLayout.NORTH);
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
-
-        showPage(LaunchPage.class);
-
     }
 
-    public static void main(String[] args) {
-        new LaunchBar();
-    }
     // instead sa mag buhat og method taga page (showLaunchPage, showLibraryPage, etc.)
     // kay kani nalang showPage method na modawat og class parameter
-    private void showPage(Class<? extends JPanel> pageClass) {
+    public void showPage(Class<? extends JPanel> pageClass) {
 
         try {
             page = pageClass.getDeclaredConstructor().newInstance();

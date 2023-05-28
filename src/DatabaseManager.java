@@ -109,6 +109,7 @@ public class DatabaseManager {
             return false;
         }
     }
+
     public boolean saveQuestion(int quizId, String questionText) {
         String sql = "INSERT INTO Question (quiz_id, question_text) VALUES (?, ?)";
         try {
@@ -121,6 +122,15 @@ public class DatabaseManager {
             System.out.println("Failed to save question: " + e.getMessage());
             return false;
         }
+    }
+
+    public ResultSet getSavedQuestions() throws SQLException {
+        String sql = "SELECT 'Multiple Choice' AS type, question, option1, option2, option3, option4, correct_option AS answer FROM multiple_choice UNION " +
+                "SELECT 'True/False' AS type, question, NULL AS option1, NULL AS option2, NULL AS option3, NULL AS option4, IF(answer, 'True', 'False') AS answer FROM true_false UNION " +
+                "SELECT 'Short Answer' AS type, question, NULL AS option1, NULL AS option2, NULL AS option3, NULL AS option4, answer FROM short_answer";
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        return statement.executeQuery();
     }
 }
 

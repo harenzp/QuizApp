@@ -12,7 +12,6 @@ public class HomePage extends JFrame {
     BufferedImage theLogo = ImageIO.read(new File("myImages/1.png"));
     Image scaledLogo = theLogo.getScaledInstance(350, 350, Image.SCALE_SMOOTH);
     JLabel homeLogo = new JLabel(new ImageIcon(scaledLogo));
-
     JButton teacherButton = new JButton("Teacher Login");
     JButton studentButton = new JButton("Student Login");
     JLabel signUpLink = new JLabel("Sign up.");
