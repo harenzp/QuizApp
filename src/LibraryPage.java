@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LibraryPage extends JPanel {
 
@@ -63,23 +65,6 @@ public class LibraryPage extends JPanel {
         constraints.gridx = 2;
         add(buttonPanel, constraints);
 
-        JLabel nameLabel = new JLabel("Name");
-        nameLabel.setFont(nameLabel.getFont().deriveFont(Font.BOLD));
-        JLabel categoryLabel = new JLabel("Category");
-        categoryLabel.setFont(categoryLabel.getFont().deriveFont(Font.BOLD));
-        JLabel dateLabel = new JLabel("Date");
-        dateLabel.setFont(dateLabel.getFont().deriveFont(Font.BOLD));
-
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        add(nameLabel, constraints);
-
-        constraints.gridx = 1;
-        add(categoryLabel, constraints);
-
-        constraints.gridx = 2;
-        add(dateLabel, constraints);
-
         // Add ActionListener to the createQuizButton
         createQuizButton.addActionListener(new ActionListener() {
             @Override
@@ -106,21 +91,19 @@ public class LibraryPage extends JPanel {
                 String category = resultSet.getString("category");
                 String date = resultSet.getString("date");
 
-                String formattedQuizInfo = String.format("<html><b>%s</b> - Category: %s - Date: %s</html>", title, category, date);
+                String formattedQuizInfo = String.format("<html><div><strong>Title:</strong> <span style='float:left;'>%s</span></div><div><strong>Category: </strong><span style='text-align:center;'>%s</span></div><strong>Date: </strong><span style='float:right;'>%s</span></html>", title, category, date);
 
                 JPanel quizPanel = new JPanel(new GridBagLayout());
                 quizPanel.setBackground(Color.white);
                 quizPanel.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        // Handle click event
-                        // Replace the code below with your desired logic
-                        System.out.println("Clicked on quiz: " + title);
+                        editQuiz(title);
                     }
 
                     @Override
                     public void mouseEntered(MouseEvent e) {
-                        quizPanel.setBackground(Color.decode("#FFDDDD")); // Light red background when hovered
+                        quizPanel.setBackground(Color.decode("#FFDDDD"));
                         quizPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     }
 
@@ -132,7 +115,7 @@ public class LibraryPage extends JPanel {
                 });
 
                 JLabel quizInfoLbl = new JLabel(formattedQuizInfo);
-                quizInfoLbl.setForeground(Color.black); // Set the color of the label to black
+                quizInfoLbl.setForeground(Color.black);
 
                 GridBagConstraints panelConstraints = new GridBagConstraints();
                 panelConstraints.gridx = 0;
@@ -157,5 +140,172 @@ public class LibraryPage extends JPanel {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Failed to retrieve quizzes.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+        // Add ActionListener to the searchField
+        searchField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String searchText = searchField.getText();
+                filterQuizzes(searchText);
+            }
+        });
+    }
+
+    private void filterQuizzes(String searchText) {
+        Component[] components = getComponents();
+
+        for (Component component : components) {
+            if (component instanceof JPanel) {
+                JPanel quizPanel = (JPanel) component;
+                Component[] quizPanelComponents = quizPanel.getComponents();
+                JLabel quizInfoLabel = null;
+
+                for (Component quizPanelComponent : quizPanelComponents) {
+                    if (quizPanelComponent instanceof JLabel) {
+                        quizInfoLabel = (JLabel) quizPanelComponent;
+                        break;
+                    }
+                }
+
+                if (quizInfoLabel != null) {
+                    String quizInfo = quizInfoLabel.getText();
+
+                    if (quizInfo.toLowerCase().contains(searchText.toLowerCase())) {
+                        quizPanel.setVisible(true);
+                    } else {
+                        quizPanel.setVisible(false);
+                    }
+                }
+            }
+        }
+    }
+
+
+    private void editQuiz(String title) {
+        JDialog editDialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Edit Quiz", true);
+        editDialog.setLayout(new BorderLayout());
+
+        JTextField titleField = new JTextField(title);
+        JComboBox<String> categoryComboBox = new JComboBox<>(new String[]{"Category 1", "Category 2", "Category 3"});
+        JSpinner dateSpinner = new JSpinner(new SpinnerDateModel());
+        JSpinner timeSpinner = new JSpinner(new SpinnerDateModel());
+        JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateSpinner, "yyyy-MM-dd");
+        JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
+        dateSpinner.setEditor(dateEditor);
+        timeSpinner.setEditor(timeEditor);
+
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String editedTitle = titleField.getText();
+                String editedCategory = (String) categoryComboBox.getSelectedItem();
+                Date editedDate = (Date) dateSpinner.getValue();
+                Date editedTime = (Date) timeSpinner.getValue();
+                String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(editedDate);
+
+                try {
+                    DatabaseManager databaseManager = new DatabaseManager();
+                    Connection connection = databaseManager.getDatabaseConnection();
+                    String updateQuery = "UPDATE Quiz SET title = '" + editedTitle + "', category = '" + editedCategory + "', date = '" + formattedDate + "' WHERE title = '" + title + "'";
+                    Statement updateStatement = connection.createStatement();
+                    updateStatement.executeUpdate(updateQuery);
+
+                    updateStatement.close();
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Failed to update quiz.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                Component[] components = getComponents();
+                for (Component component : components) {
+                    if (component instanceof JPanel) {
+                        JPanel quizPanel = (JPanel) component;
+                        Component[] quizPanelComponents = quizPanel.getComponents();
+                        for (Component panelComponent : quizPanelComponents) {
+                            if (panelComponent instanceof JLabel) {
+                                JLabel quizInfoLabel = (JLabel) panelComponent;
+                                String quizInfo = quizInfoLabel.getText();
+                                if (quizInfo.contains(title)) {
+                                    String updatedQuizInfo = String.format("<html><div><strong>Title:</strong> <span style='float:left;'>%s</span></div><div><strong>Category: </strong><span style='text-align:center;'>%s</span></div><strong>Date: </strong><span style='float:right;'>%s</span></html>", editedTitle, editedCategory, formattedDate);
+                                    quizInfoLabel.setText(updatedQuizInfo);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                editDialog.dispose();
+            }
+        });
+
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(editDialog, "Are you sure you want to delete this quiz?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    try {
+                        DatabaseManager databaseManager = new DatabaseManager();
+                        Connection connection = databaseManager.getDatabaseConnection();
+                        String deleteQuery = "DELETE FROM Quiz WHERE title = '" + title + "'";
+                        Statement deleteStatement = connection.createStatement();
+                        deleteStatement.executeUpdate(deleteQuery);
+
+                        deleteStatement.close();
+                        connection.close();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Failed to delete quiz.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    Component[] components = getComponents();
+                    for (Component component : components) {
+                        if (component instanceof JPanel) {
+                            JPanel quizPanel = (JPanel) component;
+                            Component[] quizPanelComponents = quizPanel.getComponents();
+                            for (Component panelComponent : quizPanelComponents) {
+                                if (panelComponent instanceof JLabel) {
+                                    JLabel quizInfoLabel = (JLabel) panelComponent;
+                                    String quizInfo = quizInfoLabel.getText();
+                                    if (quizInfo.contains(title)) {
+                                        Container parent = quizPanel.getParent();
+                                        parent.remove(quizPanel);
+                                        parent.revalidate();
+                                        parent.repaint();
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    editDialog.dispose();
+                }
+            }
+        });
+
+        JPanel editPanel = new JPanel(new GridLayout(6, 2, 5, 5));
+        editPanel.add(new JLabel("Title:"));
+        editPanel.add(titleField);
+        editPanel.add(new JLabel("Category:"));
+        editPanel.add(categoryComboBox);
+        editPanel.add(new JLabel("Date:"));
+        editPanel.add(dateSpinner);
+        editPanel.add(new JLabel("Time:"));
+        editPanel.add(timeSpinner);
+        editPanel.add(new JLabel());
+        editPanel.add(saveButton);
+        editPanel.add(new JLabel());
+        editPanel.add(deleteButton);
+
+        editDialog.add(editPanel, BorderLayout.CENTER);
+        editDialog.pack();
+        editDialog.setLocationRelativeTo(this);
+        editDialog.setVisible(true);
     }
 }
