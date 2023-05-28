@@ -203,11 +203,4 @@ class RoomPage extends JPanel {
 
         studentCountLabel.setText(String.valueOf(admittedListModel.size()));
     }
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Room Page");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-        frame.getContentPane().add(new RoomPage());
-        frame.setVisible(true);
-    }
 }
